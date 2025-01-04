@@ -25,7 +25,7 @@ export const getCallDetails = async (id) => {
 // This API call is responsible for updating the call details
 export const updateCall = async (id, data) => {
   try {
-    const response = await axios.post(`${API_URL}/activities/${id}`, data);
+    const response = await axios.patch(`${API_URL}/activities/${id}`, data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -35,7 +35,7 @@ export const updateCall = async (id, data) => {
 
 export const resetAllCallStatus = async () => {
   try {
-    const response = await axios.post(`${API_URL}/reset`);
+    const response = await axios.patch(`${API_URL}/reset`);
     return response.data;
   } catch (error) {
     console.error(error);
