@@ -27,5 +27,6 @@
 #app .content-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 616px;
 }
