@@ -7,8 +7,7 @@ import Feed from "./Pages/Feed.jsx";
 const App = () => {
   return (
     <div className="container">
-      <Header />
-      <div className="container-view">Some activities should be here</div>
+        <Header />
       <div className="container-view">
         <Feed />
       </div>
