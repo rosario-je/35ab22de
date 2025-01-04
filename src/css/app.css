@@ -13,6 +13,7 @@
   width: 376px;
   height: 666px;
   z-index: 100;
+  overflow-y: hidden;
 
   background: white;
   border-radius: 3px;
@@ -22,4 +23,3 @@
 #app .container-view {
   padding: 20px;
 }
-
