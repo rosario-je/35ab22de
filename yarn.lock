@@ -2087,6 +2087,11 @@
     "dom-serializer" "0"
     "domelementtype" "1"
 
+"dotenv@^16.4.7":
+  "integrity" "sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-16.4.7.tgz"
+  "version" "16.4.7"
+
 "duplexify@^3.4.2", "duplexify@^3.6.0":
   "integrity" "sha512-vM58DwdnKmty+FSPzT14K9JXb90H+j5emaR4KYbr2KTIz00WHGbWOe5ghQTx233ZCLZtrGDALzKwcjEtSt35mA=="
   "resolved" "https://registry.npmjs.org/duplexify/-/duplexify-3.6.1.tgz"
