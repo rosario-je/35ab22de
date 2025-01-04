@@ -1,39 +1,85 @@
-#app .archive-all-button{
-  display: flex;
-  align-items: center;
-  padding-bottom: 10px;
+.inbox-section {
+  padding: 20px 20px 7px 20px;
 }
 
-#app .archive-all-button h2{
-  padding-left: 10px;
+#app .archive-all-button {
+  display: flex;
+  align-items: center;
 }
 
 #app .call-list {
-  padding: 20px;
-  max-height: 666px;
-  max-width: 376px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
   overflow-y: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding-top: 10px 0px 10px 0px;
+  background-color: #ffffff; 
+}
+
+#app .call-list::-webkit-scrollbar {
+  display: none; 
 }
 
 #app .call-list h2 {
   font-size: 10px;
-  margin-bottom: 15px;
   color: #333;
 }
 
 #app .call-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  border-radius: 0.75rem;
-  
+  padding: 10px 15px; 
+  border-bottom: 1px solid #e0e0e0; 
   transition: background-color 0.3s ease;
 }
 
-#app .call-container .call-details h2 {
-  font-size: 15px;
+#app .call-container:hover {
+  background-color: #f9f9f9;
+}
 
+#app .call-container:last-child {
+  border-bottom: none; 
+}
+
+#app .call-info{
+  align-items: center;
+}
+
+#app .call-icon {
+  margin-right: 15px; 
+  color: #007aff;
+}
+
+#app .call-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#app .call-details h2 {
+  font-weight: 500;
+  color: #000;
+}
+
+#app .call-details .call-info {
+  display: flex;
+  flex-direction: column;
+}
+
+#app .call-details .call-date {
+  color: #888; 
+}
+
+#app .call-details .call-action {
+  display: flex;
+  align-items: center;
+  color: #858282; 
+  cursor: pointer;
+}
+
+#app .call-date {
+  padding-right: 10px;
+  font-size: 10px;
 }

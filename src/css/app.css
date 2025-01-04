@@ -23,3 +23,9 @@
 #app .container-view {
   padding: 20px;
 }
+
+#app .content-container {
+  display: flex;
+  flex-direction: column;
+  height: 616px;
+}
