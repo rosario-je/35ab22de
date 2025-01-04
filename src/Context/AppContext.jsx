@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 
 const AppContext = createContext();
 
-import { getCallList } from "../API";
+import { getCallList, updateCall } from "../API";
 
 const ContextProvider = ({ children }) => {
   /*--------State variables used in application-------*/
@@ -41,7 +41,6 @@ const ContextProvider = ({ children }) => {
     fetchCallList();
   }, [setCallList, setArchivedCalls]);
 
-
   /*--------Archive all calls that are not archived-------*/
   const handleArchiveAll = async () => {
     for (const call of callList) {
@@ -75,7 +74,6 @@ const ContextProvider = ({ children }) => {
       console.error("Failed to reset call status:", error);
     }
   };
-  
 
   const providerValue = {
     selectedPage,
