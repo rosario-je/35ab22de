@@ -1,0 +1,39 @@
+#app .archive-all-button{
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+#app .archive-all-button h2{
+  padding-left: 10px;
+}
+
+#app .call-list {
+  padding: 20px;
+  max-height: 666px;
+  max-width: 376px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#app .call-list h2 {
+  font-size: 10px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+#app .call-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 0.75rem;
+  
+  transition: background-color 0.3s ease;
+}
+
+#app .call-container .call-details h2 {
+  font-size: 15px;
+
+}
