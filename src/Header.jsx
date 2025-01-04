@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { AppContext } from "./Context/AppContext.jsx";
 
 const Header = () => {
+  const {handlePageClick, selectedPage} = useContext(AppContext);
+  const pages = ["Inbox", "All", "Archived"];
+  
   return (
     <header className="contianer-view">
       <svg
@@ -41,9 +46,15 @@ const Header = () => {
         </g>
       </svg>
       <ul className="nav-links">
-        <li>Home</li>
-        <li>All Calls</li>
-        <li>Archived calls</li>
+        {pages.map((page) => (
+          <li
+            className={`menu-item ${selectedPage === page ? "highlight" : ""}`}
+            key={page}
+            onClick={() => handlePageClick(page)}
+          >
+            {page}
+          </li>
+        ))}
       </ul>
     </header>
   );
