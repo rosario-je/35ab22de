@@ -1,61 +1,88 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 
+//Helpers
+import { AppContext } from "../Context/AppContext.jsx";
 import { getCallList } from "../API";
+import { formatDate } from "../Helpers/DateFunction.js";
 
+//Icons
 import {
   BsFillTelephoneInboundFill,
   BsFillTelephoneOutboundFill,
 } from "react-icons/bs";
+import { IoInformationCircleSharp } from "react-icons/io5";
+import { IoArchiveOutline } from "react-icons/io5";
 
 const CallList = () => {
-  const [callList, setCallList] = useState([]);
+  const { selectedPage, callList, setCallList } = useContext(AppContext);
 
   useEffect(() => {
     const fetchCallList = async () => {
-      const callList = await getCallList();
-      setCallList(callList);
-      console.log(callList);
+      const callData = await getCallList();
+      setCallList(callData);
+      console.log(callData);
     };
 
     fetchCallList();
-  }, []);
+  }, [setCallList]);
 
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleString();
-  };
+  // Filter the call list based on the selected page
+  const filteredCallList = callList.filter((call) => {
+    if (selectedPage === "Inbox") {
+      return call.direction === "inbound";
+    }
+    if (selectedPage === "Archived Calls") {
+      return call.is_archived === "true";
+    }
+    return true;
+  });
+
+  const sortedCallList = filteredCallList.sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    return dateB - dateA;
+  });
 
   return (
-    <div className="call-list">
-      <div>
-        <h2>Call log:</h2>
-      </div>
+    <>
+      {selectedPage === "Archived" ? (
+        <button className="archive-all-button">
+          <IoArchiveOutline size={24} />
+          <h2>Unarchive all calls</h2>
+        </button>
+      ) : (
+        <button className="archive-all-button">
+          <IoArchiveOutline size={24} />
+          <h2>Archive all calls</h2>
+        </button>
+      )}
 
-      {callList.length > 0 ? (
-        callList.map((call) => {
-          return (
+      <div className="call-list">
+        {filteredCallList.length > 0 ? (
+          filteredCallList.map((call) => (
             <div key={call.id} className="call-container">
-              {call.direction === "inbound" ? (
-                <BsFillTelephoneInboundFill size={24} />
-              ) : (
-                <BsFillTelephoneOutboundFill size={24} />
-              )}
+              <div className="call-icon">
+                {call.direction === "inbound" ? (
+                  <BsFillTelephoneInboundFill size={20} />
+                ) : (
+                  <BsFillTelephoneOutboundFill size={20} />
+                )}
+              </div>
               <div className="call-details">
-                <div>
-                  <h2>{call.from}</h2>
-                  <p>{formatDate(call.created_at)}</p>
-                </div>
-                <div>
-                  <p>Duration: {call.duration} minutes</p>
+                <h2>+{call.from}</h2>
+
+                <div className="call-action">
+                  <p className="call-date">{formatDate(call.created_at)}</p>
+                  <IoInformationCircleSharp size={20} />
                 </div>
               </div>
             </div>
-          );
-        })
-      ) : (
-        <p>No calls to display</p>
-      )}
-    </div>
+          ))
+        ) : (
+          <p>No calls to display</p>
+        )}
+      </div>
+    </>
   );
 };
 
