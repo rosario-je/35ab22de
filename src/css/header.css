@@ -1,12 +1,31 @@
 header {
-  height: 40px;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 10px 20px 10px 20px;
   text-align: center;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 header svg {
   display: block;
-  width: 100%; height: 100%;
+  width: 80px;
+  height: auto;
+}
+
+header .nav-links {
+  display: flex;
+  justify-content: space-evenly;
+  width: 60%;
+  list-style-type: none;
+  font-weight: 100;
+  align-items: center;
+}
+
+header .nav-links li {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 0.75rem;
+
 }
