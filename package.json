@@ -7,7 +7,7 @@
   "author": "",
   "license": "",
   "private": false,
-  "homepage": "https://rosario-je.github.io/35ab22de",
+  "homepage": "https://three5ab22de.onrender.com",
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
