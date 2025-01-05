@@ -13,6 +13,7 @@
   width: 376px;
   height: 666px;
   z-index: 100;
+  overflow-y: hidden;
 
   background: white;
   border-radius: 3px;
@@ -23,3 +24,9 @@
   padding: 20px;
 }
 
+#app .content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 610px;
+}

@@ -1,12 +1,55 @@
 header {
-  height: 40px;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 10px 20px 10px 20px;
   text-align: center;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 header svg {
   display: block;
-  width: 100%; height: 100%;
+  width: 80px;
+  height: auto;
+}
+
+header .nav-links {
+  display: flex;
+  justify-content: space-evenly;
+  width: auto;
+  list-style-type: none;
+  font-weight: 100;
+  align-items: center;
+  background-color: rgb(110, 106, 106);
+  border-radius: 4px;
+}
+
+header .nav-links li ul{
+  padding: 2px;
+}
+
+header .nav-links li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  color: white;
+}
+
+header .nav-links li:not(.highlight):hover {
+  background-color: rgba(179, 170, 170, 0.1);
+  color: #cad3c9;
+}
+
+header .nav-links li.highlight {
+  background-color: #c9c9c9;
+  color: white;
+  border-style: solid;
+  border-radius: 4px;
+  transform: scaleX(1.1);
 }
