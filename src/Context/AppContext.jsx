@@ -9,6 +9,7 @@ const ContextProvider = ({ children }) => {
   const [selectedPage, setSelectedPage] = useState("Inbox");
   const [callList, setCallList] = useState([]);
   const [archivedCalls, setArchivedCalls] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handlePageClick = (page) => {
     setSelectedPage(page);
@@ -45,9 +46,12 @@ const ContextProvider = ({ children }) => {
   const handleArchiveAll = async () => {
     for (const call of callList) {
       try {
+        setLoading(true);
         const updatedCall = await updateCall(call.id, {
           is_archived: true,
         });
+        setLoading(false);
+
         console.log(`Updated call ${call.id}:`, updatedCall);
       } catch (error) {
         console.error(`Failed to update call ${call.id}:`, error);
@@ -62,13 +66,13 @@ const ContextProvider = ({ children }) => {
     );
     setArchivedCalls(archivedCallsData);
   };
-
   /*--------Reset all calls to original state (unarchive all alls)-------*/
   const handleCallReset = async () => {
     try {
       await resetAllCallStatus();
       const callData = await getCallList();
       setCallList(callData);
+      setArchivedCalls([]);
       console.log("Call status reset successfully");
     } catch (error) {
       console.error("Failed to reset call status:", error);
@@ -85,6 +89,7 @@ const ContextProvider = ({ children }) => {
     setArchivedCalls,
     handleArchiveAll,
     handleCallReset,
+    loading,
   };
 
   return (
