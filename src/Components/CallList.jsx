@@ -22,7 +22,7 @@ const CallList = () => {
     handleCallReset,
     loading,
   } = useContext(AppContext);
-console.log(callList);
+
 
   const [selectedCall, setSelectedCall] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

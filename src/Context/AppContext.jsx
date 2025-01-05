@@ -11,8 +11,6 @@ const ContextProvider = ({ children }) => {
   const [archivedCalls, setArchivedCalls] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("archivedCalls", archivedCalls);
-
   const handlePageClick = (page) => {
     setSelectedPage(page);
   };
