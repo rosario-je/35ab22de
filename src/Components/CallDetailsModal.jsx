@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { updateCall } from "../API";
+
+import { getCallList } from "../API";
+import { AppContext } from "../Context/AppContext.jsx";
 
 const CallDetailsModal = ({
   id,
@@ -16,6 +19,7 @@ const CallDetailsModal = ({
   selectedPage,
 }) => {
   const [loading, setLoading] = useState(false);
+  const { fetchCallList } = useContext(AppContext);
 
   const formatDuration = (duration) => {
     const minutes = Math.floor(duration / 60);
@@ -31,11 +35,11 @@ const CallDetailsModal = ({
       const newArchiveStatus =
         selectedPage === "Archived" || is_archived ? false : true;
 
-
       const updatedCall = await updateCall(id, {
         is_archived: newArchiveStatus,
       });
       console.log(`Updated call ${id}:`, updatedCall);
+      fetchCallList();
 
       onClose();
     } catch (error) {
@@ -75,13 +79,17 @@ const CallDetailsModal = ({
                 </>
               )}
             </h3>
-            <p
-              className={`text-sm ${
-                call_type === "missed" ? "text-red-600" : "text-zinc-800"
-              }`}
-            >
-              {call_type}
-            </p>
+            {duration === 0 ? (
+              <p className="text-sm text-red-600">Missed Call</p>
+            ) : (
+              <p
+                className={`text-sm ${
+                  call_type === "missed" ? "text-red-600" : "text-green-600"
+                }`}
+              >
+                {call_type === "missed" ? "Missed" : "Answered"}
+              </p>
+            )}
           </div>
         </div>
 
@@ -92,11 +100,11 @@ const CallDetailsModal = ({
           </p>
           <p className="text-sm text-zinc-600">Via: {via}</p>
         </div>
-        <div className="flex justify-end p-4 border-t border-zinc-200">
+        <div className="flex justify-end pt-4 border-t border-zinc-200">
           <button
             id="close-button"
             type="button"
-            className="px-4 py-2 text-sm font-semibold text-blue-600 bg-zinc-200 rounded-lg hover:bg-zinc-300 focus:outline-none"
+            className="px-4 py-2 text-sm font-semibold text-blue-600 bg-zinc-200 rounded-lg hover:bg-zinc-300 transition-all duration-200 focus:outline-none"
             onClick={onClose}
           >
             Close
@@ -106,8 +114,8 @@ const CallDetailsModal = ({
             type="button"
             className={`ml-2 px-4 py-2 text-sm font-semibold rounded-lg focus:outline-none ${
               selectedPage === "Archived" || is_archived
-                ? "text-green-600 bg-zinc-200 hover:bg-zinc-300"
-                : "text-red-600 bg-zinc-200 hover:bg-zinc-300"
+                ? "text-green-600 bg-zinc-200 hover:bg-zinc-300 transition-all duration-200"
+                : "text-red-600 bg-zinc-200 hover:bg-zinc-300 transition-all duration-200"
             }`}
             onClick={handleCallUpdate}
             disabled={loading}

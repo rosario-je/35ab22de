@@ -22,6 +22,7 @@ const CallList = () => {
     handleCallReset,
     loading,
   } = useContext(AppContext);
+console.log(callList);
 
   const [selectedCall, setSelectedCall] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +64,7 @@ const CallList = () => {
           {/* Archive/Unarchive All Button */}
           {selectedPage === "Archived" && archivedCalls.length > 0 ? (
             <button
-              className="archive-all-button pb-4"
+              className="archive-all-button pb-4 hover:text-green-600"
               onClick={handleCallReset}
             >
               <h2>Unarchive all calls</h2>

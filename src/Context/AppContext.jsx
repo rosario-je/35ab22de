@@ -11,37 +11,35 @@ const ContextProvider = ({ children }) => {
   const [archivedCalls, setArchivedCalls] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("this is the callList", callList);
-  console.log("this is the archivedCalls", archivedCalls);
+  console.log("archivedCalls", archivedCalls);
 
   const handlePageClick = (page) => {
     setSelectedPage(page);
   };
 
   /*--------Fetch call list and filter out archived and unarchived calls-------*/
+  const fetchCallList = async () => {
+    try {
+      const callData = await getCallList();
+
+      const archivedCallsData = [];
+      const unarchivedCallsData = [];
+
+      callData.forEach((call) => {
+        if (call.is_archived) {
+          archivedCallsData.push(call);
+        } else {
+          unarchivedCallsData.push(call);
+        }
+      });
+
+      setArchivedCalls(archivedCallsData);
+      setCallList(unarchivedCallsData);
+    } catch (error) {
+      console.error("Failed to fetch call data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchCallList = async () => {
-      try {
-        const callData = await getCallList();
-
-        const archivedCallsData = [];
-        const unarchivedCallsData = [];
-
-        callData.forEach((call) => {
-          if (call.is_archived) {
-            archivedCallsData.push(call);
-          } else {
-            unarchivedCallsData.push(call);
-          }
-        });
-
-        setArchivedCalls(archivedCallsData);
-        setCallList(unarchivedCallsData);
-      } catch (error) {
-        console.error("Failed to fetch call data:", error);
-      }
-    };
-
     fetchCallList();
   }, [setCallList, setArchivedCalls]);
 
@@ -105,6 +103,7 @@ const ContextProvider = ({ children }) => {
     handleCallReset,
     loading,
     setLoading,
+    fetchCallList,
   };
 
   return (
