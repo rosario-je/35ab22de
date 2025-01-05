@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://aircall-api.onrender.com"
+const API_URL = process.env.REACT_APP_API_KEY
 
 // This API call is responsible for fetching the list of calls
 export const getCallList = async () => {
