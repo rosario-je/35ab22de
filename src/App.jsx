@@ -15,21 +15,17 @@ const App = () => {
     <div className="container">
       <Header />
       <div className="content-container">
-        <Routes>
-          <Route path="/" element={<Feed />} />
-        </Routes>
-        <BottomNav />
+        <Feed />
       </div>
+      <BottomNav />
     </div>
   );
 };
 
 ReactDOM.render(
-  <BrowserRouter>
-    <ContextProvider>
-      <App />
-    </ContextProvider>
-  </BrowserRouter>,
+  <ContextProvider>
+    <App />
+  </ContextProvider>,
   document.getElementById("app")
 );
 
