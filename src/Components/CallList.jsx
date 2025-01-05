@@ -91,9 +91,9 @@ const CallList = () => {
                   <div key={call.id} className="call-container">
                     <div className="call-icon">
                       {call.direction === "inbound" ? (
-                        <BsFillTelephoneInboundFill size={20} />
+                        <BsFillTelephoneInboundFill size={15} />
                       ) : (
-                        <BsFillTelephoneOutboundFill size={20} />
+                        <BsFillTelephoneOutboundFill size={15} />
                       )}
                     </div>
                     <div className="call-details">
