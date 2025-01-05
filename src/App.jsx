@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+//Context and Utilities
 import { ContextProvider } from "./Context/AppContext.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//Components and Pages
 import Header from "./Header.jsx";
 import Feed from "./Pages/Feed.jsx";
-import CallList from "./Components/CallList.jsx";
 import BottomNav from "./Components/BottomNav.jsx";
 
 const App = () => {
@@ -12,7 +15,9 @@ const App = () => {
     <div className="container">
       <Header />
       <div className="content-container">
-        <Feed />
+        <Routes>
+          <Route path="/" element={<Feed />} />
+        </Routes>
         <BottomNav />
       </div>
     </div>
@@ -20,9 +25,11 @@ const App = () => {
 };
 
 ReactDOM.render(
-  <ContextProvider>
-    <App />
-  </ContextProvider>,
+  <BrowserRouter>
+    <ContextProvider>
+      <App />
+    </ContextProvider>
+  </BrowserRouter>,
   document.getElementById("app")
 );
 
