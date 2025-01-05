@@ -11,6 +11,9 @@ const ContextProvider = ({ children }) => {
   const [archivedCalls, setArchivedCalls] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  console.log("this is the callList", callList);
+  console.log("this is the archivedCalls", archivedCalls);
+
   const handlePageClick = (page) => {
     setSelectedPage(page);
   };
@@ -44,28 +47,39 @@ const ContextProvider = ({ children }) => {
 
   /*--------Archive all calls that are not archived-------*/
   const handleArchiveAll = async () => {
-    for (const call of callList) {
-      try {
-        setLoading(true);
+    setLoading(true);
+
+    try {
+      const updatedCalls = [];
+
+      for (const call of callList) {
         const updatedCall = await updateCall(call.id, {
           is_archived: true,
         });
-        setLoading(false);
-
-        console.log(`Updated call ${call.id}:`, updatedCall);
-      } catch (error) {
-        console.error(`Failed to update call ${call.id}:`, error);
+        updatedCalls.push(updatedCall);
       }
+
+      // After archiving, filter archived and unarchived calls
+      const callData = await getCallList();
+      const archivedCallsData = callData.filter(
+        (call) => call.is_archived === "true"
+      );
+      const unarchivedCallsData = callData.filter(
+        (call) => call.is_archived !== "true"
+      );
+
+      // Update both callList and archivedCalls state
+      setCallList([]);
+      setArchivedCalls(callData);
+
+      console.log("All calls archived successfully");
+    } catch (error) {
+      console.error("Failed to archive calls:", error);
+    } finally {
+      setLoading(false);
     }
-
-    const callData = await getCallList();
-    setCallList(callData);
-
-    const archivedCallsData = callData.filter(
-      (call) => call.is_archived === "true"
-    );
-    setArchivedCalls(archivedCallsData);
   };
+
   /*--------Reset all calls to original state (unarchive all alls)-------*/
   const handleCallReset = async () => {
     try {
@@ -90,6 +104,7 @@ const ContextProvider = ({ children }) => {
     handleArchiveAll,
     handleCallReset,
     loading,
+    setLoading,
   };
 
   return (
