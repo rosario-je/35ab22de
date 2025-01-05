@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import { AppContext } from "./Context/AppContext.jsx";
 
 const Header = () => {
-  const {handlePageClick, selectedPage} = useContext(AppContext);
+  const { handlePageClick, selectedPage } = useContext(AppContext);
   const pages = ["Inbox", "All", "Archived"];
-  
+
   return (
-    <header className="contianer-view">
+    <header className="contianer-view h-14 flex items-center">
       <svg
         width="486px"
         height="168px"
@@ -45,17 +45,22 @@ const Header = () => {
           />
         </g>
       </svg>
-      <ul className="nav-links">
+      <div role="tablist" className="tabs tabs-bordered flex text-red">
         {pages.map((page) => (
-          <li
-            className={`menu-item ${selectedPage === page ? "highlight" : ""}`}
+          <a
+            role="tab"
             key={page}
             onClick={() => handlePageClick(page)}
+            className={`tab relative ${
+              selectedPage === page ? "tab-active" : ""
+            } 
+        after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full 
+        after:h-[2px] after:bg-black transition-all duration-300`}
           >
-            {page}
-          </li>
+            <span className="text-black">{page}</span>
+          </a>
         ))}
-      </ul>
+      </div>
     </header>
   );
 };
