@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AppContext } from "../Context/AppContext.jsx";
-import { getCallList, updateCall, resetAllCallStatus } from "../API"; // Import updateCall
 import { formatDate } from "../Helpers/DateFunction.js";
 
 // Icons
@@ -10,6 +9,7 @@ import {
 } from "react-icons/bs";
 import { IoInformationCircleSharp } from "react-icons/io5";
 import { IoArchiveOutline } from "react-icons/io5";
+import CallDetailsModal from "./CallDetailsModal.jsx";
 
 const CallList = () => {
   const {
@@ -22,17 +22,16 @@ const CallList = () => {
     handleCallReset,
   } = useContext(AppContext);
 
-  console.log("this is the callList", callList);
-  console.log("this is the archivedCalls", archivedCalls);
+  const [selectedCall, setSelectedCall] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  /*--------Sort all the calls by date-------*/
+  // Sort and filter calls based on selected page
   const sortedCallList = callList.sort((a, b) => {
     const dateA = new Date(a.created_at);
     const dateB = new Date(b.created_at);
     return dateB - dateA;
   });
 
-  //Filter the callList based on page for inbount calls and all calls
   const filteredCallList = callList.filter((call) => {
     if (selectedPage === "Inbox") {
       return call.direction === "inbound";
@@ -40,24 +39,36 @@ const CallList = () => {
     return true;
   });
 
+  // Function to handle modal open
+  const handleOpenModal = (call) => {
+    setSelectedCall(call);
+    setIsModalOpen(true);
+  };
+
+  // Function to handle modal close
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       {selectedPage === "Archived" && archivedCalls.length > 0 ? (
-        <button className="archive-all-button" onClick={handleCallReset}>
-          <IoArchiveOutline size={24} />
+        <button className="archive-all-button pb-4" onClick={handleCallReset}>
           <h2>Unarchive all calls</h2>
         </button>
       ) : (
         selectedPage !== "Archived" &&
         callList.length > 0 && (
-          <button className="archive-all-button" onClick={handleArchiveAll}>
-            <IoArchiveOutline size={24} />
+          <button
+            className="archive-all-button pb-4"
+            onClick={handleArchiveAll}
+          >
             <h2>Archive all calls</h2>
           </button>
         )
       )}
 
-      <div className="call-list">
+      <div className="call-list overflow-y-auto scrollbar-hidden max-h-[400px]">
         {selectedPage === "Archived" ? (
           archivedCalls.length > 0 ? (
             archivedCalls.map((call) => (
@@ -73,7 +84,10 @@ const CallList = () => {
                   <h2>+{call.from}</h2>
                   <div className="call-action">
                     <p className="call-date">{formatDate(call.created_at)}</p>
-                    <IoInformationCircleSharp size={20} />
+                    <IoInformationCircleSharp
+                      size={20}
+                      onClick={() => handleOpenModal(call)}
+                    />
                   </div>
                 </div>
               </div>
@@ -81,12 +95,11 @@ const CallList = () => {
           ) : (
             <p>No archived calls to display</p>
           )
-        ) : // If not on "Archived" page, exclude archived calls
-        filteredCallList.length > 0 ? (
+        ) : filteredCallList.length > 0 ? (
           filteredCallList
             .filter((call) => call.is_archived !== "true")
             .map((call) => (
-              <div key={call.id} className="call-container">
+              <div key={call.id} className="call-container ">
                 <div className="call-icon">
                   {call.direction === "inbound" ? (
                     <BsFillTelephoneInboundFill size={20} />
@@ -98,7 +111,10 @@ const CallList = () => {
                   <h2>+{call.from}</h2>
                   <div className="call-action">
                     <p className="call-date">{formatDate(call.created_at)}</p>
-                    <IoInformationCircleSharp size={20} />
+                    <IoInformationCircleSharp
+                      size={20}
+                      onClick={() => handleOpenModal(call)}
+                    />
                   </div>
                 </div>
               </div>
@@ -107,6 +123,14 @@ const CallList = () => {
           <p>No calls to display</p>
         )}
       </div>
+
+      {selectedCall && (
+        <CallDetailsModal
+          {...selectedCall}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 };
