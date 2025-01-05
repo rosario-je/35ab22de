@@ -40,4 +40,9 @@ module.exports = {
     }),
     new webpack.DefinePlugin(envKeys),
   ],
+  devServer: {
+    port: process.env.PORT || 8080,
+    host: '0.0.0.0',
+    disableHostCheck: true,
+  },
 };

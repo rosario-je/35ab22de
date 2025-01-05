@@ -9,7 +9,7 @@
   "private": false,
   "homepage": "https://rosario-je.github.io/35ab22de",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
   "engines": {
