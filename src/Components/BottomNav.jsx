@@ -17,7 +17,7 @@ const BottomNav = () => {
 
   return (
     <nav className="bottom-nav">
-      <ul className="bottom-nav-list flex justify-evenly">
+      <ul className="bottom-nav-list">
         <li className="relative text-green-600" onClick={() => navigate("/")}>
           <IoCallSharp size={20} />
           {callList.length > 0 && (
