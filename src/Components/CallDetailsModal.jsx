@@ -38,7 +38,6 @@ const CallDetailsModal = ({
       const updatedCall = await updateCall(id, {
         is_archived: newArchiveStatus,
       });
-      console.log(`Updated call ${id}:`, updatedCall);
       fetchCallList();
 
       onClose();

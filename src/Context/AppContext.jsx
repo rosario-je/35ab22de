@@ -68,7 +68,7 @@ const ContextProvider = ({ children }) => {
       setCallList([]);
       setArchivedCalls(callData);
 
-      console.log("All calls archived successfully");
+      // console.log("All calls archived successfully");
     } catch (error) {
       console.error("Failed to archive calls:", error);
     } finally {
@@ -83,7 +83,7 @@ const ContextProvider = ({ children }) => {
       const callData = await getCallList();
       setCallList(callData);
       setArchivedCalls([]);
-      console.log("Call status reset successfully");
+      // console.log("Call status reset successfully");
     } catch (error) {
       console.error("Failed to reset call status:", error);
     }
