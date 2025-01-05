@@ -45,22 +45,27 @@ const Header = () => {
           />
         </g>
       </svg>
-      <div role="tablist" className="tabs tabs-bordered flex text-red">
+      <ul className="menu menu-xs menu-horizontal bg-zinc-100 rounded-md gap-x-1">
         {pages.map((page) => (
-          <a
-            role="tab"
+          <li
             key={page}
-            onClick={() => handlePageClick(page)}
-            className={`tab relative ${
-              selectedPage === page ? "tab-active" : ""
-            } 
-        after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full 
-        after:h-[2px] after:bg-black transition-all duration-300`}
+            className={`${
+              selectedPage === page
+                ? "bg-zinc-300 text-zinc-800 rounded-lg"
+                : "text-zinc-800"
+            }`}
           >
-            <span className="text-zinc-800 text-[10px]">{page}</span>
-          </a>
+            <a
+              role="tab"
+              onClick={() => handlePageClick(page)}
+              className="py-2 px-3 rounded-lg"
+              data-tip={page}
+            >
+              <span className="text-[10px]">{page}</span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </header>
   );
 };
