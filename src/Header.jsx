@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 
 import { AppContext } from "./Context/AppContext.jsx";
 
 const Header = () => {
   const { handlePageClick, selectedPage } = useContext(AppContext);
-  const pages = ["Inbox", "All", "Archived"];
+  const pages = useMemo(() => ["Inbox", "All", "Archived"], []);
 
   return (
-    <header className="contianer-view h-14 flex items-center">
+    <header className="container-view h-14 flex items-center">
       <svg
         width="486px"
         height="168px"
