@@ -7,7 +7,7 @@ const Header = () => {
   const pages = useMemo(() => ["Inbox", "All", "Archived"], []);
 
   return (
-    <header className="container-view h-14 flex items-center">
+    <header className="container-view h-14 flex items-center font-primary">
       <svg
         width="486px"
         height="168px"
@@ -57,7 +57,7 @@ const Header = () => {
         after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full 
         after:h-[2px] after:bg-black transition-all duration-300`}
           >
-            <span className="text-black">{page}</span>
+            <span className="text-zinc-800 text-[10px]">{page}</span>
           </a>
         ))}
       </div>
