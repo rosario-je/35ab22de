@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 
 const AppContext = createContext();
 
-import { getCallList, updateCall } from "../API";
+import { getCallList, resetAllCallStatus, updateCall } from "../API";
 
 const ContextProvider = ({ children }) => {
   /*--------State variables used in application-------*/
