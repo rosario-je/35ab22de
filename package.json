@@ -8,7 +8,7 @@
   "license": "",
   "private": false,
   "scripts": {
-    "start": "webpack-dev-server --mode development --host 0.0.0.0 --port $PORT",
+    "start": "webpack-dev-server --mode development --host 0.0.0.0 --port 8080",
     "build": "webpack --mode production"
   },
   "engines": {

@@ -40,4 +40,11 @@ module.exports = {
     }),
     new webpack.DefinePlugin(envKeys),
   ],
+
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+    disableHostCheck: true,
+    historyApiFallback: true,
+  },
 };
