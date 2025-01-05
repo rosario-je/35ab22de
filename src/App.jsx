@@ -16,8 +16,8 @@ const App = () => {
       <Header />
       <div className="content-container">
         <Feed />
+        <BottomNav />
       </div>
-      <BottomNav />
     </div>
   );
 };
